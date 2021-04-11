@@ -1,0 +1,38 @@
+queue_directory = /var/spool/postfix
+command_directory = /usr/sbin
+daemon_directory = /usr/libexec/postfix
+data_directory = /var/lib/postfix
+
+mail_owner = postfix
+myhostname = mail
+mydomain = localhost
+#virtual_alias_domains = hash:/etc/postfix/virtual_domains
+#
+# Sending mail
+myorigin = $mydomain
+#
+# Receiving mail
+inet_interfaces = all
+inet_protocols=ipv4
+mydestination = $myhostname, localhost.$mydomain, localhost, $mydomain
+#
+# Rejecting local mail
+unknown_local_recipient_reject_code = 550
+#
+# Tusts and relay
+mynetworks_style = host
+#mynetworks = 127.0.0.1
+mynetworks = 127.0.0.0/8, [::1]/128
+relayhost = 127.0.0.1:1025
+default_transport = smtp
+
+# Input rate control
+in_flow_delay = 1s
+#
+# Banner
+smtpd_banner = $myhostname ESMTP (smtp)
+mailbox_size_limit = 5120000000
+# INSTALL-TIME CONFIGURATION INFORMATION
+sendmail_path = /usr/sbin/sendmail
+newaliases_path = /usr/bin/newaliases
+mailq_path = /usr/bin/mailq

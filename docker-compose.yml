@@ -1,0 +1,44 @@
+version: "3.8"
+
+services:
+  web:
+    build:
+      context: ./
+    container_name: "dev-webserver"
+    restart: "always"
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./publish:/var/www/html/
+      - ./vhost:/etc/httpd/conf/vhosts/
+      - ./mail:/etc/postfix/
+    links:
+      - dbmssql
+      - mailhog
+    networks:
+      - dev-net
+  dbmssql:
+    image: "mcr.microsoft.com/mssql/server:2019-latest"
+    container_name: "dev-mssql"
+    volumes:
+      - ./database:/var/opt/mssql/data/
+    networks:
+      - dev-net
+    ports:
+      - "1433:1433"
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=1Secure*Password1
+  mailhog:
+    image: mailhog/mailhog:latest
+    container_name: "dev-mail-server"
+    restart: "always"
+    ports:
+      - "1025:1025"
+      - "8025:8025"
+    networks:
+      - dev-net
+networks:
+  dev-net:
+    name: dev-global-net
