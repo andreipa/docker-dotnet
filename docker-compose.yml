@@ -9,10 +9,10 @@ services:
     ports:
       - "80:80"
       - "443:443"
+      - "2222:2222"
     volumes:
       - ./publish:/var/www/html/
       - ./vhost:/etc/httpd/conf/vhosts/
-      - ./mail:/etc/postfix/
     links:
       - dbmssql
       - mailhog
