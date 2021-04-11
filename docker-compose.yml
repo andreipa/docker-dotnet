@@ -32,7 +32,7 @@ services:
       - SA_PASSWORD=1Secure*Password1
   mailhog:
     image: mailhog/mailhog:latest
-    container_name: "dev-mail-server"
+    container_name: "dev-mail"
     restart: "always"
     ports:
       - "1025:1025"
