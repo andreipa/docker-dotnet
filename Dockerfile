@@ -41,6 +41,9 @@ RUN cp /root/go/bin/mhsendmail /usr/bin/mhsendmail
 RUN echo "ServerName localhost" >> /etc/httpd/conf/httpd.conf
 RUN echo "include /etc/httpd/conf/vhosts/*.conf" >> /etc/httpd/conf/httpd.conf
 
+RUN echo "LoadModule proxy_module modules/mod_proxy.so" >> /etc/httpd/conf/httpd.conf
+RUN echo "LoadModule proxy_http_module modules/mod_proxy_http.so" >> /etc/httpd/conf/httpd.conf
+
 # Configuration postfix
 RUN echo "mailhub=mailhog:1025" >> /etc/ssmtp/ssmtp.conf
 RUN echo "hostname=$(hostname -f)" >> /etc/ssmtp/ssmtp.conf
