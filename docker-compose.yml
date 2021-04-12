@@ -4,15 +4,14 @@ services:
   web:
     build:
       context: ./
-    container_name: "dev-webserver"
+    container_name: "webserver"
     restart: "always"
     ports:
       - "80:80"
       - "443:443"
       - "2222:2222"
     volumes:
-      - ./publish:/var/www/html/
-      - ./vhost:/etc/httpd/conf/vhosts/
+      - ./project/app/bin/Debug/netcoreapp3.1:/var/www/html/
     links:
       - dbmssql
       - mailhog
@@ -20,7 +19,7 @@ services:
       - dev-net
   dbmssql:
     image: "mcr.microsoft.com/mssql/server:2019-latest"
-    container_name: "dev-mssql"
+    container_name: "mssql"
     volumes:
       - ./database:/var/opt/mssql/data/
     networks:
@@ -32,7 +31,7 @@ services:
       - SA_PASSWORD=1Secure*Password1
   mailhog:
     image: mailhog/mailhog:latest
-    container_name: "dev-mail"
+    container_name: "mail"
     restart: "always"
     ports:
       - "1025:1025"

@@ -58,6 +58,8 @@ RUN echo "FromLineOverride=yes" >> /etc/ssmtp/ssmtp.conf
 #RUN sed -i "s/#UsePrivilegeSeparation.*/UsePrivilegeSeparation no/g" /etc/ssh/sshd_config
 #RUN sed -i "s/UsePAM.*/UsePAM no/g" /etc/ssh/sshd_config
 
+COPY ./default.conf /etc/httpd/conf/vhosts/
+
 # start apache
 CMD ["-D", "FOREGROUND"]
 ENTRYPOINT ["/usr/sbin/httpd"]
